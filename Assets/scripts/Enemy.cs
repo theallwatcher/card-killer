@@ -1,5 +1,7 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,11 +15,17 @@ public class Enemy : MonoBehaviour
     public int attack = 10;
     bool isdead = false;
     bool canDicide = true;
+
+
+    [Header("ui")]
+    [SerializeField] Image healthBar;
+    [SerializeField] TextMeshProUGUI healthText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
 
         player = FindFirstObjectByType<player>();
         gameManager = FindFirstObjectByType<GameManager>();
+        healthText.text = health + "/" + maxHealth;
     }
 
     // Update is called once per frame
@@ -88,21 +96,27 @@ public class Enemy : MonoBehaviour
             health = health - damage;
             Debug.Log("au E");
         }
+        float newWidth = (float)health / maxHealth;
+        healthBar.fillAmount = newWidth;
+        healthText.text = health + "/" + maxHealth;
     }
 
-   /* public void DoHeal(int amount){
+    /* public void DoHeal(int amount){
 
-        if (health + amount > maxHealth){
+         if (health + amount > maxHealth){
 
-            health = maxHealth;
-            Debug.Log("hp max heal");
-        }
-        else{
-            health = health + amount;
-            Debug.Log("aaaa");
-        }
-    }
-   */
+             health = maxHealth;
+             Debug.Log("hp max heal");
+         }
+         else{
+             health = health + amount;
+             Debug.Log("aaaa");
+         }
+     float newWidth = (float)health/maxHealth;
+         healthBar.fillAmount = newWidth;
+         healthText.text = health + "/" + maxHealth;
+     }
+    */
 
     public void AddDefense(int amount){
 

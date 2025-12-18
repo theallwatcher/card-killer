@@ -1,4 +1,8 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
+
 
 public class player : MonoBehaviour
 {
@@ -7,6 +11,11 @@ public class player : MonoBehaviour
     public int maxHealth = 100;
     public int defense = 0;
     bool isdead = false;
+
+    [Header("ui")]
+    [SerializeField] Image healthBar;
+    [SerializeField] TextMeshProUGUI healthText;
+    
 
     Enemy enemy;
 
@@ -19,6 +28,7 @@ public class player : MonoBehaviour
     void Start()
     {
         GetEnemy();
+        healthText.text = health + "/" + maxHealth;
     }
 
     // Update is called once per frame
@@ -60,6 +70,10 @@ public class player : MonoBehaviour
             health = health - damage;
             Debug.Log("au");
         }
+
+        float newWidth = (float)health/maxHealth;
+        healthBar.fillAmount = newWidth;
+        healthText.text = health + "/" + maxHealth;
     }
 
     public void DoHeal(int amount){
@@ -73,6 +87,10 @@ public class player : MonoBehaviour
             health = health + amount;
             Debug.Log("aaaa");
         }
+
+        float newWidth = (float)health / maxHealth;
+        healthBar.fillAmount = newWidth;
+        healthText.text = health + "/" + maxHealth;
     }
 
     public void AddDefense(int amount){ 
